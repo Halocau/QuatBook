@@ -101,8 +101,8 @@
                                                             onclick="editProductModal(this)">
                                                         Edit
                                                     </button>
-                                                    <form action="product?action=delete" method="POST">
-                                                        <input type="hidden" name="id" value="${p.id}"/>
+                                                    <form action="manageruser?action=delete" method="POST">
+                                                        <input type="hidden" name="id" value="${u.id}"/>
                                                         <button type="submit" class="btn btn-danger">Delete</button>
                                                     </form>
                                                 </td>

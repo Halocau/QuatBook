@@ -35,7 +35,7 @@
             <span>Charts</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="manager-user">
+        <a class="nav-link" href="manageruser">
             <i class="fas fa-fw fa-table"></i>
             <span>Account user</span></a>
     </li>

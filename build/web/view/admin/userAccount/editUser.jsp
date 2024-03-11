@@ -11,15 +11,15 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="editBookForm" action="manager-user?action=edit" method="POST" enctype="multipart/form-data">
+                <form id="editBookForm" action="manageruser?action=edit" method="POST" enctype="multipart/form-data" onsubmit="return validateForm2()">
                     <!--id-->
-                    <div class="form-group" style="display: none">
-                        <input type="text" class="form-control" id="idEditInput" name="id" required>
+                    <div class="form-group"  style="display: none" >
+                        <input type="text" class="form-control" id="idEditInput" name="id"  required>
                     </div>
                     <!--Name-->
                     <div class="form-group">
                         <label for="name">Username:</label>
-                        <input type="text" class="form-control" id="usernameEditInput" name="username" required>
+                        <input type="text" class="form-control" id="usernameEditInput" name="username"  required>
                         <div id="nameEditError" class="error"></div>
                     </div>
                     <!--Password-->
@@ -43,66 +43,71 @@
                     <div class="form-group">
                         <label for="category">Status: </label>
                         <input type="text" class="form-control" id="roleIdEdit" name="roleId" readonly/>   
-                    </div> 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary" form="editBookForm"
-                        onclick="validateForm2()">Update</button>
-                            </div>
+
         </div>
     </div>
 </div>
 
 <script>
-                            function validateForm2() {
-                                    let name = $('#nameEditInput').val();
-                                    let price = $('#priceEditInput').val();
+    function validateForm2() {
+        let username = $('#usernameEditInput').val();
+        let password = $('#passwordEditInput').val();
+        let email = $('#emailEditInput').val();
+        let address = $('#addressEditInput').val();
+        let roleId = $('#roleIdEdit').val();
 
+        // Xóa thông báo lỗi hiện tại
+        $('.error').html('');
 
-                                    //xoá thông báo lỗi hiện tại                             $('.error').html(''); 
-                            if (name === '') {
-                            $('#nameEditError').html('Tên sách không được để trống');
-                                } 
-                            if (price === '') {
-                            $('#priceEditError').html('Giá của quyển sách không được để trống');
-                            }
+        let error = '';
 
+        if (username.trim() === '') {
+            $('#nameEditError').html('Tên người dùng không được để trống');
+            error += 'Tên người dùng không được để trống. ';
+        }
 
+        if (password.trim() === '') {
+            $('#passwordEditError').html('Mật khẩu không được để trống');
+            error += 'Mật khẩu không được để trống. ';
+        }
 
-                            // Kiểm tra nếu không có lỗi thì submit form                                 let error = '';
-                                $('.error').each(function () {
-                                    error += $(this).html();
-                                });
-                                if (error === '') {
-                                    $('#editBookForm')
-                                            .submit();
-                                } else {
-                                    event.preventDefault();
-                                }
-                            }
+       
 
+        
 
+        // Kiểm tra nếu không có lỗi thì submit form
+        if (error === '') {
+            $('#editBookForm').submit();
+        } else {
+            // Ngăn chặn việc submit form và hiển thị tất cả các lỗi
+            event.preventDefault();
+            alert('Vui lòng sửa các lỗi sau:\n' + error);
+        }
+    }
 
-<!-- function editProductModal(id, name, description, author, price, quantity, image, categoryId) {// -->
+    // Hàm mở modal chỉnh sửa sản phẩm
     function editProductModal(button) {
         let id = $(button).closest('tr').find('td[name="id"]').text().trim();
         let username = $(button).closest('tr').find('td[name="username"]').text().trim();
         let password = $(button).closest('tr').find('td[name="password"]').text().trim();
         let email = $(button).closest('tr').find('td[name="email"]').text().trim();
         let address = $(button).closest('tr').find('td[name="address"]').text().trim();
-       let roleId = $(button).closest('tr').find('td[name="roleId"]').text().trim();
+        let roleId = $(button).closest('tr').find('td[name="roleId"]').text().trim();
 
         $('#idEditInput').val(id);
         $('#usernameEditInput').val(username);
         $('#passwordEditInput').val(password);
         $('#emailEditInput').val(email);
         $('#addressEditInput').val(address);
-        //loop through category list to select the category
         $('#roleIdEdit').val(roleId);
-        
     }
-
 </script>
+
 

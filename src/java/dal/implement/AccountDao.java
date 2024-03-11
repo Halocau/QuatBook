@@ -73,7 +73,41 @@ public class AccountDao extends GenericDAO<Account> {
         parameterMap.put("roleId", 2);
         return queryGenericDAO(Account.class, sql, parameterMap);
     }
+
+    public void editUserAccount(Account account) {
+        String sql = "UPDATE [dbo].[Account]\n"
+                + "   SET [username] = ?\n"
+                + "      ,[password] = ?\n"
+                + "      ,[email] = ?\n"
+                + "      ,[address] = ?\n"
+                
+                + " WHERE [id] = ?";
+        parameterMap = new LinkedHashMap<>();
+        parameterMap.put("username", account.getUsername());
+        parameterMap.put("password", account.getPassword());
+        parameterMap.put("email", account.getEmail());
+        parameterMap.put("address", account.getAddress());
+      
+        parameterMap.put("id", account.getId());
+        queryGenericDAO(Account.class, sql, parameterMap);
+    }
+
+    public void delete(Account account) {
+        String sql = "DELETE FROM [dbo].[Account]\n"
+                + "      WHERE id = ?";
+        parameterMap = new LinkedHashMap<>();
+        parameterMap.put("id", account.getId());
+        queryGenericDAO(Account.class, sql, parameterMap);
+
+    }
+
     public static void main(String[] args) {
+        Account a = new Account();
+        a.setId(25);
+        a.setUsername("cc");
+        a.setPassword("1222");
+        AccountDao dao  = new AccountDao();
+        dao.editUserAccount(a);
         for (Account account : new AccountDao().loadAccountUser()) {
             System.out.println(account);
         }
