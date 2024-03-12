@@ -17,7 +17,7 @@ public class OrderDetailDAO extends GenericDAO<OrderDetail>{
 
     @Override
     public List<OrderDetail> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return queryGenericDAO(OrderDetail.class);
     }
 
     @Override
@@ -29,12 +29,16 @@ public class OrderDetailDAO extends GenericDAO<OrderDetail>{
                 + "     VALUES\n"
                 + "           (?\n"
                 + "           ,?\n"
-                + "           ,?>)";
+                + "           ,?)";
         parameterMap = new LinkedHashMap<>();
         parameterMap.put("quantity", t.getQuantity());
         parameterMap.put("productId", t.getProductId());
         parameterMap.put("orderId", t.getOrderId());
         return insertGenericDAO(sql, parameterMap);
     }
-    
+    public static void main(String[] args) {
+        for (OrderDetail orderDetail : new OrderDetailDAO().findAll()) {
+            System.out.println(orderDetail);
+        }
+    }
 }

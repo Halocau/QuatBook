@@ -185,10 +185,11 @@ public class cartController extends HttpServlet {
     private void checkOut(HttpServletRequest request, HttpServletResponse response) {
         // lấy về cart
         HttpSession session = request.getSession();
-        List<Product> list = (List<Product>) session.getAttribute(commonConst.SESSION_PRODUCT);
         Order cart = (Order) session.getAttribute(commonConst.SESSION_ORDER_CART);
         // lấy về account id
         int accountId = ((Account) session.getAttribute(commonConst.SESSION_ACCOUNT)).getId();
+        List<Product> list = (List<Product>) session.getAttribute(commonConst.SESSION_PRODUCT);
+
         //ammout: tổng số tiền
         int ammount = caculatorAmount(cart, list);
         //set infomation
@@ -199,32 +200,31 @@ public class cartController extends HttpServlet {
         //innsert: order
         //get ra list product
 
-        OrderDAO odao = new OrderDAO();
+        OrderDAO orderDAO = new OrderDAO();
         OrderDetailDAO ord = new OrderDetailDAO();
-        int orderId = odao.insert(cart);
+        int orderId = orderDAO.insert(cart);
+
         for (OrderDetail orderDetail : cart.getListOrderDetail()) {
-            orderDetail.setId(orderId);
+            orderDetail.setOrderId(orderId);
             ord.insert(orderDetail);
         }
-        
+
         //remove cart
         session.removeAttribute("cart");
     }
-    
-  
 
     private int caculatorAmount(Order cart, List<Product> list) {
         int ammount = 0;
-        for (OrderDetail ord : cart.getListOrderDetail()) {
-            ammount += (ord.getQuantity() * findPriceById(list, ord.getProductId()));
+        for (OrderDetail od : cart.getListOrderDetail()) {
+            ammount += (od.getQuantity() * findPriceById(list, od.getProductId()));
         }
         return ammount;
     }
-    
-    private float findPriceById(List<Product> list, int bookId){
+
+    private float findPriceById(List<Product> list, int bookId) {
         for (Product obj : list) {
-            if(obj.getId() == bookId){
-                return  obj.getPrice();
+            if (obj.getId() == bookId) {
+                return obj.getPrice();
             }
         }
         return 0;
