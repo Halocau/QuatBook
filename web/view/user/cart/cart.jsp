@@ -85,70 +85,57 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
+                            <form action="#">
+                                <div class="table-content table-responsive mb-15 border-1">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th class="product-thumbnail">Image</th>
+                                                <th class="product-name">Product</th>
+                                                <th class="product-price">Price</th>
+                                                <th class="product-quantity">Quantity</th>
+                                                <th class="product-subtotal">Total</th>
+                                                <th class="product-remove">Remove</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-                            <div class="table-content table-responsive mb-15 border-1">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th class="product-thumbnail">Image</th>
-                                            <th class="product-name">Product</th>
-                                            <th class="product-price">Price</th>
-                                            <th class="product-quantity">Quantity</th>
-                                            <th class="product-subtotal">Total</th>
-                                            <th class="product-remove">Remove</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        
-                                    <c:forEach items="${cart.listOrderDetail}" var="order">
-                                        <c:forEach items="${listProduct}" var="product">
-                                            <c:if test="${product.id == order.productId}">
-                                                <c:set var="p" value="${product}"></c:set>
-                                            </c:if>
+                                        <c:forEach items="${cart.listOrderDetail}" var="order">
+                                            <c:forEach items="${listProduct}" var="product">
+                                                <c:if test="${product.id == order.productId}">
+                                                    <c:set var="p" value="${product}"></c:set>
+                                                </c:if>
+                                            </c:forEach>
+                                            <tr>
+                                                <td class="product-thumbnail"><a href="#"><img src="${p.image}" alt="man" /></a></td>
+                                                <td class="product-name"><a href="#">${p.name}</a></td>
+                                                <td class="product-price"><span class="amount">${p.price}$</span></td>
+                                                <td><input type="number" value="${order.quantity}"></td>
+                                                <td class="product-subtotal">${p.price * order.quantity}$</td>
+                                                <td class="product-remove">
+                                                    <form action="payment?action=delete" method="POST">
+                                                        <input type="hidden" name="id" value="${p.id}"/>
+                                                        <a href="#" onclick="return this.closest('form').submit()"><i class="fa fa-times"></i></a>
+                                                    </form>
+                                                </td>
+                                            </tr>
                                         </c:forEach>
-                                        <tr>
-                                            <td class="product-thumbnail"><a href="#"><img src="${p.image}" alt="man" /></a></td>
-                                            <td class="product-name"><a href="#">${p.name}</a></td>
-                                            <td class="product-price"><span class="amount">${p.price}</span></td>
-                                            <td class="product-quantity">
-                                                <form action="payment?action=change-quantity" method="POST">
-                                                    <input type="hidden" name="id" value="${p.id}"/>
-                                                    <input type="number" name="quantity" 
-                                                           value="${od.quantity}"
-                                                           onchange="return this.closest('form').submit()"/>
-                                                </form>
-                                            </td>
-                                            <td class="product-subtotal">${product.price * order.quantity}</td>
-                                            <td class="product-remove">
-                                                <form action="payment?action=delete" method="POST">
-                                                    <input type="hidden" name="id" value="${p.id}"/>
-                                                    <a href="#" onclick="return this.closest('form').submit()"><i class="fa fa-times"></i></a>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
-
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-8 col-md-6 col-12">
                         <div class="buttons-cart mb-30">
-                            <ul>
-                                <li><a href="#">Update Cart</a></li>
-                                <li><a href="#">Continue Shopping</a></li>
-                            </ul>
-                        </div>
-                        <div class="coupon">
-                            <h3>Coupon</h3>
-                            <p>Enter your coupon code if you have one.</p>
-                            <form action="#">
-                                <input type="text" placeholder="Coupon code">
-                                <a href="#">Apply Coupon</a>
+                            <form action="#" method="POST">
+                                <ul>
+                                    <li><a href="#">Continue Shopping</a></li>
+                                </ul>
                             </form>
                         </div>
+
                     </div>
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="cart_totals">
@@ -158,7 +145,7 @@
                                     <tr class="cart-subtotal">
                                         <th>Subtotal</th>
                                         <td>
-                                            <span class="amount">£215.00</span>
+                                            <span id="subtotal" class="amount"></span>
                                         </td>
                                     </tr>
                                     <tr class="shipping">
@@ -166,14 +153,6 @@
                                         <td>
                                             <ul id="shipping_method">
                                                 <li>
-                                                    <input type="radio">
-                                                    <label>
-                                                        Flat Rate:
-                                                        <span class="amount">£7.00</span>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <input type="radio">
                                                     <label> Free Shipping </label>
                                                 </li>
                                             </ul>
@@ -184,7 +163,7 @@
                                         <th>Total</th>
                                         <td>
                                             <strong>
-                                                <span class="amount">£215.00</span>
+                                                <span id="totalCart" class="amount"></span>
                                             </strong>
                                         </td>
                                     </tr>
@@ -235,6 +214,20 @@
         <script src="${pageContext.request.contextPath}/js/plugins.js"></script>
         <!-- main js -->
         <script src="${pageContext.request.contextPath}/js/main.js"></script>
+        <script>
+                                                            window.onload = updateSubTotal();
+
+                                                            function updateSubTotal() {
+                                                                let totalPriceOfEachProduct = document.querySelectorAll('td.product-subtotal');
+                                                                let totalCart = 0;
+                                                                totalPriceOfEachProduct.forEach(e => {
+                                                                    let totalPrice = parseFloat(e.textContent.trim());
+                                                                    totalCart += totalPrice;
+                                                                });
+                                                                document.querySelector('#subtotal').innerHTML = totalCart + "$";
+                                                                document.querySelector('#totalCart').innerHTML = totalCart + "$";
+                                                            }
+        </script>
     </body>
 
     <!-- Mirrored from htmldemo.net/koparion/koparion/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 23 Feb 2024 17:30:45 GMT -->
