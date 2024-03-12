@@ -4,6 +4,9 @@
  */
 package controller.user;
 
+import constant.commonConst;
+import dal.implement.OrderDAO;
+import dal.implement.OrderDetailDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,8 +14,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.Account;
 import model.Order;
 import model.OrderDetail;
+import java.sql.Timestamp;
+import java.sql.*;
+import java.time.LocalDateTime;
+import java.util.List;
+import model.Product;
 
 /**
  *
@@ -84,6 +93,9 @@ public class cartController extends HttpServlet {
             case "delete":
                 delete(request, response);
                 break;
+            case "check-out":
+                checkOut(request, response);
+                break;
             default:
                 throw new AssertionError();
         }
@@ -119,7 +131,7 @@ public class cartController extends HttpServlet {
         //them orderdetail vao trong cart
         addOrderDetailCart(or, cart);
         session.setAttribute("cart", cart);
-        
+
     }
 
     private void addOrderDetailCart(OrderDetail or, Order cart) {
@@ -145,7 +157,7 @@ public class cartController extends HttpServlet {
             //lay về cart
             Order cart = (Order) session.getAttribute("cart");
             for (OrderDetail orderDetail : cart.getListOrderDetail()) {
-                if(orderDetail.getProductId() == id){
+                if (orderDetail.getProductId() == id) {
                     // thay đổi  quantity
                     orderDetail.setQuantity(quantity);
                 }
@@ -162,12 +174,60 @@ public class cartController extends HttpServlet {
         OrderDetail od = null;
         Order cart = (Order) session.getAttribute("cart");
         for (OrderDetail orderDetail : cart.getListOrderDetail()) {
-            if(orderDetail.getProductId() == id){
+            if (orderDetail.getProductId() == id) {
                 od = orderDetail;
             }
         }
         cart.getListOrderDetail().remove(od);
-        session.setAttribute("cart",cart);
+        session.setAttribute("cart", cart);
+    }
+
+    private void checkOut(HttpServletRequest request, HttpServletResponse response) {
+        // lấy về cart
+        HttpSession session = request.getSession();
+        List<Product> list = (List<Product>) session.getAttribute(commonConst.SESSION_PRODUCT);
+        Order cart = (Order) session.getAttribute(commonConst.SESSION_ORDER_CART);
+        // lấy về account id
+        int accountId = ((Account) session.getAttribute(commonConst.SESSION_ACCOUNT)).getId();
+        //ammout: tổng số tiền
+        int ammount = caculatorAmount(cart, list);
+        //set infomation
+        cart.setAccountId(accountId);
+        cart.setAmmount(ammount);
+        //createTime
+        cart.setCreateTime(Timestamp.valueOf(LocalDateTime.now()));
+        //innsert: order
+        //get ra list product
+
+        OrderDAO odao = new OrderDAO();
+        OrderDetailDAO ord = new OrderDetailDAO();
+        int orderId = odao.insert(cart);
+        for (OrderDetail orderDetail : cart.getListOrderDetail()) {
+            orderDetail.setId(orderId);
+            ord.insert(orderDetail);
+        }
+        
+        //remove cart
+        session.removeAttribute("cart");
+    }
+    
+  
+
+    private int caculatorAmount(Order cart, List<Product> list) {
+        int ammount = 0;
+        for (OrderDetail ord : cart.getListOrderDetail()) {
+            ammount += (ord.getQuantity() * findPriceById(list, ord.getProductId()));
+        }
+        return ammount;
+    }
+    
+    private float findPriceById(List<Product> list, int bookId){
+        for (Product obj : list) {
+            if(obj.getId() == bookId){
+                return  obj.getPrice();
+            }
+        }
+        return 0;
     }
 
 }
