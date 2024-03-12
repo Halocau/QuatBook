@@ -81,6 +81,9 @@ public class cartController extends HttpServlet {
             case "change-quantity":
                 changeQuantity(request, response);
                 break;
+            case "delete":
+                delete(request, response);
+                break;
             default:
                 throw new AssertionError();
         }
@@ -151,6 +154,20 @@ public class cartController extends HttpServlet {
             e.printStackTrace();
         }
 
+    }
+
+    private void delete(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        HttpSession session = request.getSession();
+        OrderDetail od = null;
+        Order cart = (Order) session.getAttribute("cart");
+        for (OrderDetail orderDetail : cart.getListOrderDetail()) {
+            if(orderDetail.getProductId() == id){
+                od = orderDetail;
+            }
+        }
+        cart.getListOrderDetail().remove(od);
+        session.setAttribute("cart",cart);
     }
 
 }
