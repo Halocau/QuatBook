@@ -33,12 +33,13 @@
             </div>
             <div class="col-lg-6 col-md-6 col-12">
                 <div class="account-area text-end">
+
                     <ul>
                         <c:if test="${account != null}">
                             <!--  User-->
                             <c:if test="${account.roleId == 2}">
                                 <li>
-                                    <a href="${pageContext.request.contextPath}/user/dashboard">My Account</a>
+                                    <a href="${pageContext.request.contextPath}/user/dashboard">My Account</a>                              
                                 </li>
                             </c:if>
                             <!--  Admin -->

@@ -16,4 +16,5 @@ public class commonConst {
     public static final String SESSION_USER = "user";
     public static final String SESSION_ROLE = "role";
     public static final String SESSION_ORDER_CART = "cart";
+    public static final String SESSION_ORDER_DETAIL = "detail";
 }

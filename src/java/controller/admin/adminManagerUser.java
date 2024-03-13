@@ -126,25 +126,23 @@ public class adminManagerUser extends HttpServlet {
     }
 
     private List<Account> editUserAccount(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            int id = Integer.parseInt(request.getParameter("id"));
+        
+            String id = request.getParameter("id");
             String username = request.getParameter("username");
             String password = request.getParameter("password");
             String email = request.getParameter("email");
             String address = request.getParameter("address");
-            int roleId = Integer.parseInt(request.getParameter("roleId"));
+        
 
             Account account = new Account();
-            account.setId(id);
+            account.setId(Integer.parseInt(id));
             account.setUsername(username);
             account.setPassword(password);
             account.setEmail(email);
             account.setAddress(address);
-            account.setRoleId(roleId);
+       
             accountDao.editUserAccount(account);
-        } catch (NumberFormatException  ex) {
-            System.err.println(ex.getMessage());
-        }
+    
         return accountDao.loadAccountUser();
     }
 

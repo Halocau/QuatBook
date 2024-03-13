@@ -5,15 +5,18 @@
 package dal.implement;
 
 import dal.GenericDAO;
+import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.OrderDetail;
 
 /**
  *
  * @author Admin
  */
-public class OrderDetailDAO extends GenericDAO<OrderDetail>{
+public class OrderDetailDAO extends GenericDAO<OrderDetail> {
 
     @Override
     public List<OrderDetail> findAll() {
@@ -36,8 +39,19 @@ public class OrderDetailDAO extends GenericDAO<OrderDetail>{
         parameterMap.put("orderId", t.getOrderId());
         return insertGenericDAO(sql, parameterMap);
     }
+
+    public List<OrderDetail> findOrderId(OrderDetail orderDetail) {
+        String sql = "SELECT * FROM dbo.OrderDetail\n"
+                + "WHERE orderId = ?";
+        parameterMap = new LinkedHashMap<>();
+        parameterMap.put("orderId", orderDetail.getOrderId());
+        return queryGenericDAO(OrderDetail.class, sql, parameterMap);
+    }
+
     public static void main(String[] args) {
-        for (OrderDetail orderDetail : new OrderDetailDAO().findAll()) {
+        OrderDetail od = new OrderDetail();
+        od.setOrderId(13);
+        for (OrderDetail orderDetail : new OrderDetailDAO().findOrderId(od)) {
             System.out.println(orderDetail);
         }
     }

@@ -51,8 +51,7 @@ public class AccountDAO2 extends DBContext {
                 + "   SET [username] = ?\n"
                 + "      ,[password] = ?\n"
                 + "      ,[email] = ?\n"
-                + "      ,[address] = ?\n"
-                + "      ,[roleId] = ?\n"
+                + "      ,[address] = ?\n"  
                 + " WHERE [id] = ?";
         try {
             statement = connection.prepareStatement(sql);
@@ -60,8 +59,8 @@ public class AccountDAO2 extends DBContext {
             statement.setObject(2, account.getPassword());
             statement.setObject(3, account.getEmail());
             statement.setObject(4, account.getAddress());
-            statement.setObject(5, account.getRoleId());
-            statement.setObject(6, account.getId());
+//            statement.setObject(5, account.getRoleId());
+            statement.setObject(5, account.getId());
             statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO2.class.getName()).log(Level.SEVERE, null, ex);
@@ -108,10 +107,8 @@ public class AccountDAO2 extends DBContext {
     }
 
     public static void main(String[] args) {
-        Account a = new Account(25, "hi", "1234", "", "", 2);
-        AccountDAO2 ad = new AccountDAO2();
-        ad.editUserAccount(a);
-        for (Account account : ad.loadAccountUser()) {
+        
+        for (Account account : new AccountDAO2().loadAccountUser()) {
             System.out.println(account);
         }
     }

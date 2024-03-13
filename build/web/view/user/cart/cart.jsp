@@ -143,11 +143,11 @@
                 <div class="row">
                     <div class="col-lg-8 col-md-6 col-12">
                         <div class="buttons-cart mb-30">
-                            <form action="#" method="POST">
+                           
                                 <ul>
-                                    <li><a href="#">Continue Shopping</a></li>
+                                    <li><a href="home">Continue Shopping</a></li>
                                 </ul>
-                            </form>
+                         
                         </div>
 
                     </div>
@@ -184,9 +184,13 @@
                                 </tbody>
                             </table>
                             <div class="wc-proceed-to-checkout">
+                                
+                            <c:if test="${account != null}">
                                 <form action="cart?action=check-out" method="POST">
                                     <a href="#" onclick="return this.closest('form').submit()">Proceed to Checkout</a>
                                 </form>
+                            </c:if>
+                                
                             </div>
                         </div>
                     </div>

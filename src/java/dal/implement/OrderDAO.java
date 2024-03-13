@@ -5,6 +5,7 @@
 package dal.implement;
 
 import dal.GenericDAO;
+import jakarta.servlet.http.HttpServletMapping;
 import java.util.LinkedHashMap;
 import java.util.List;
 import model.Order;
@@ -36,5 +37,9 @@ public class OrderDAO extends GenericDAO<Order> {
         parameterMap.put("createTime", t.getCreateTime());
         return insertGenericDAO(sql, parameterMap);
     }
-
+    public static void main(String[] args) {
+        for (Order order : new OrderDAO().findAll()) {
+            System.out.println(order);
+        }
+    }
 }

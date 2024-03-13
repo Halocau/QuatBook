@@ -68,35 +68,47 @@
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
+                                                <th>Product</th>
+                                                <th>Image</th>
+                                                <th>Quantity</th>
+                                                <th>Total money</th>
+                                                <th>Buying date</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        <c:forEach items="${oder2}" var="d">
+                                            <c:forEach items="${detail}" var="detail">
+                                                <c:if test="${detail.orderId == d.id}">
+                                                    <c:set var="de" value="${detail}"/>
+                                                </c:if>
+                                            </c:forEach>
+                                            <c:forEach items="${listProduct}" var="product">
+                                                <c:if test="${de.productId == product.id}">
+                                                    <c:set var="p" value="${product}"/>
+                                                </c:if>
+                                            </c:forEach>
                                             <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
+                                                <td>${p.name}</td>
+                                                <td>
+                                                    <img src="${p.image}" width="100" height="100" alt="alt"/>
+                                                </td>
+                                                <td>${de.quantity}</td>
+                                                <td>${d.ammount}$</td>
+                                                <td>${d.createTime}</td>
                                             </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                         </div>
-
+                        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                     </div>
-                    <!-- /.container-fluid -->
 
-                    <!-- Sticky Footer -->
-                    <jsp:include page="../../common/commonUser/footer.jsp"></jsp:include>
+                </div>
+                <!-- /.container-fluid -->
+
+                <!-- Sticky Footer -->
+                <jsp:include page="../../common/commonUser/footer.jsp"></jsp:include>
 
 
                 </div>
@@ -107,7 +119,7 @@
 
 
             <!-- Logout Modal-->
-                    <jsp:include page="../../common/commonUser/logOutModal.jsp"></jsp:include>
+        <jsp:include page="../../common/commonUser/logOutModal.jsp"></jsp:include>
 
 
             <!-- Bootstrap core JavaScript-->

@@ -11,10 +11,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="editBookForm" action="manageruser?action=edit" method="POST" enctype="multipart/form-data" onsubmit="return validateForm2()">
+             
+                <form id="editBookForm" action="manageruser?action=edit" method="POST" onsubmit="return validateForm2()">
                     <!--id-->
                     <div class="form-group"  style="display: none" >
-                        <input type="text" class="form-control" id="idEditInput" name="id"  required>
+                        <input type="text" class="form-control" id="idEditInput" name="id"  >
                     </div>
                     <!--Name-->
                     <div class="form-group">
@@ -24,24 +25,24 @@
                     </div>
                     <!--Password-->
                     <div class="form-group">
-                        <label for="price">Password:</label>
-                        <input type="text" class="form-control" id="passwordEditInput" name="password">
+                        <label for="password">Password:</label>
+                        <input type="text" class="form-control" id="passwordEditInput" name="password" required>
                         <div id="priceEditError" class="error"></div>
                     </div>
                     <!--Email-->
                     <div class="form-group">
-                        <label for="quantity">Email:</label>
+                        <label for="email">Email:</label>
                         <input type="text" class="form-control" id="emailEditInput" name="email">
                         <div id="quantityEditError" class="error"></div>
                     </div>
                     <!--Address-->
                     <div class="form-group">
-                        <label for="descriptionEditInput">Address:</label>
+                        <label for="address">Address:</label>
                         <input type="text" class="form-control" id="addressEditInput" name="address"/>
                     </div>
                     <!--roleId-->
                     <div class="form-group">
-                        <label for="category">Status: </label>
+                        <label for="roleId">Status: </label>
                         <input type="text" class="form-control" id="roleIdEdit" name="roleId" readonly/>   
                     </div>
                     <div class="modal-footer">

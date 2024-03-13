@@ -4,11 +4,13 @@
  */
 package model;
 
+import java.util.Date;
+
 /**
  *
  * @author Admin
  */
-public class OrderDetail {
+public class OrderDetail{
     private int id;
     private int quantity;
     private int productId;
@@ -18,11 +20,13 @@ public class OrderDetail {
     }
 
     public OrderDetail(int id, int quantity, int productId, int orderId) {
+        
         this.id = id;
         this.quantity = quantity;
         this.productId = productId;
         this.orderId = orderId;
     }
+    
 
     public int getId() {
         return id;
