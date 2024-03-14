@@ -72,7 +72,8 @@
                     <div class="col-lg-12">
                         <div class="login-title text-center mb-30">
                             <h2>Sign Up</h2>
-                            <p>doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo<br>inventore veritatis et quasi architecto beat</p>
+                            <p>     Chào mừng bạn đến với QuatBook</p>
+                                <p>"Sách là cánh cửa mở ra một thế giới mới."</p>
                         </div>
                     </div>
                     <div class="offset-lg-2 col-lg-8 col-md-12 col-12">

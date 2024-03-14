@@ -23,7 +23,7 @@
                         <li><a href="#">USD $<i class="fa fa-angle-down"></i></a>
                             <div class="header-sub dolor">
                                 <ul>
-                                    <li><a href="#">EUR €</a></li>
+                                    <li><a href="#">VNĐ</a></li>
                                     <li><a href="#">USD $</a></li>
                                 </ul>
                             </div>

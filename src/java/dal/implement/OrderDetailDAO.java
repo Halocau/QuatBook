@@ -40,19 +40,32 @@ public class OrderDetailDAO extends GenericDAO<OrderDetail> {
         return insertGenericDAO(sql, parameterMap);
     }
 
-    public List<OrderDetail> findOrderId(OrderDetail orderDetail) {
+    public List<OrderDetail> findOrderId(int orderId) {
         String sql = "SELECT * FROM dbo.OrderDetail\n"
                 + "WHERE orderId = ?";
         parameterMap = new LinkedHashMap<>();
-        parameterMap.put("orderId", orderDetail.getOrderId());
+        parameterMap.put("orderId", orderId);
         return queryGenericDAO(OrderDetail.class, sql, parameterMap);
     }
-
+     public List<OrderDetail> findOrderIdQuantity(int id) {
+        String sql = "SELECT [quantity] FROM dbo.OrderDetail\n"
+                + "WHERE id = ?";
+        parameterMap = new LinkedHashMap<>();
+        parameterMap.put("id", id);
+        return queryGenericDAO(OrderDetail.class, sql, parameterMap);
+    }
     public static void main(String[] args) {
-        OrderDetail od = new OrderDetail();
-        od.setOrderId(13);
-        for (OrderDetail orderDetail : new OrderDetailDAO().findOrderId(od)) {
+
+        for (OrderDetail orderDetail : new OrderDetailDAO().findOrderIdQuantity(3)) {
             System.out.println(orderDetail);
         }
+    }//findOrderId(od)
+
+    public List<OrderDetail> delete(int id) {
+        String sql = "DELETE FROM [dbo].[OrderDetail]\n"
+                + "      WHERE [id] = ?";
+        parameterMap = new LinkedHashMap<>();
+        parameterMap.put("id", id);
+        return queryGenericDAO(OrderDetail.class, sql, parameterMap);
     }
 }

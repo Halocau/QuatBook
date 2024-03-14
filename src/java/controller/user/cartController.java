@@ -156,6 +156,7 @@ public class cartController extends HttpServlet {
             int quantity = Integer.parseInt(request.getParameter("quantity"));
             //lay về cart
             Order cart = (Order) session.getAttribute("cart");
+   
             for (OrderDetail orderDetail : cart.getListOrderDetail()) {
                 if (orderDetail.getProductId() == id) {
                     // thay đổi  quantity

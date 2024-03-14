@@ -70,7 +70,7 @@ public class controllProductAdmin extends HttpServlet {
             // get name
             String name = request.getParameter("name");
             // get price
-            int price = Integer.parseInt(request.getParameter("price"));
+            float price = Float.parseFloat(request.getParameter("price"));
             // get quantity
             int quantity = Integer.parseInt(request.getParameter("quantity"));
             // get description

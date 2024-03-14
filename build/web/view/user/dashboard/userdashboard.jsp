@@ -61,7 +61,7 @@
                         <div class="card mb-3">
                             <div class="card-header">
                                 <i class="fas fa-table"></i>
-                                Data Table Example
+                                History Of Shopping
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -73,6 +73,7 @@
                                                 <th>Quantity</th>
                                                 <th>Total money</th>
                                                 <th>Buying date</th>
+                                                <th>Detail Product</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -95,6 +96,13 @@
                                                 <td>${de.quantity}</td>
                                                 <td>${d.ammount}$</td>
                                                 <td>${d.createTime}</td>
+                                                <td>
+                                                    <form action="detail-product?action=idpro" method="POST">
+                                                        <input type="hidden" name="id" value="${d.id}"/>
+                                                        <a href="detail-product"><input type="submit" class="btn btn-primary" Value="Detail Product"></a>
+                                                    </form>
+                                                        
+                                                </td>
                                             </tr>
                                         </c:forEach>
                                     </tbody>

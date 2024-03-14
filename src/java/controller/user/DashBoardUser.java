@@ -50,6 +50,8 @@ public class DashBoardUser extends HttpServlet {
 //        List<OrderDetail> hi = oddao.findOrderId(orderDetail);
         List<OrderDetail> hi = oddao.findAll();
         session.setAttribute("detail", hi);
+        
+        
         request.getRequestDispatcher("../view/user/dashboard/userdashboard.jsp").forward(request, response);
     }
 
@@ -64,7 +66,7 @@ public class DashBoardUser extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+ 
     }
 
     /**
@@ -76,5 +78,7 @@ public class DashBoardUser extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+   
 
 }

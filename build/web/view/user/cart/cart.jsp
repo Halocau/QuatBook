@@ -116,9 +116,11 @@
                                                 <form action="cart?action=change-quantity" method="POST">
                                                     <input type="hidden" name="id" value="${p.id}"/>
                                                     <input type="number" name="quantity" 
+                                                           min="1"
+                                                           oninput="validity.valid||(value='');"
                                                            value="${order.quantity}" 
                                                            onchange="return this.closest('form').submit()"/>
-
+                                                            <!-- oninput="validity.valid||(value='');": không cho người dùng để trống mục quantity -->  
                                                 </form>
                                             </td>
                                             <td class="product-subtotal">${p.price * order.quantity}$</td>
