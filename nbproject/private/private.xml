@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="PRJ301 - exercise">
-            <file>file:/D:/save_neatbeans/PRJ301%20-%20exercise/PROJECT_HE176382_BuiTienQuat/src/java/controller/user/cartController.java</file>
-            <file>file:/D:/save_neatbeans/PRJ301%20-%20exercise/PROJECT_HE176382_BuiTienQuat/web/view/admin/managerAccountUser.jsp</file>
-            <file>file:/D:/save_neatbeans/PRJ301%20-%20exercise/PROJECT_HE176382_BuiTienQuat/src/java/dal/detailDAO.java</file>
-            <file>file:/D:/save_neatbeans/PRJ301%20-%20exercise/PROJECT_HE176382_BuiTienQuat/src/java/dal/OderDAO2.java</file>
+            <file>file:/D:/save_neatbeans/PRJ301%20-%20exercise/PROJECT_HE176382_BuiTienQuat/src/java/controller/filter/refundhome.java</file>
+        </group>
+        <group name="PE PRJ301">
+            <file>file:/D:/save_neatbeans/PRJ301%20-%20exercise/PROJECT_HE176382_BuiTienQuat/web/view/home/productdetail.jsp</file>
         </group>
     </open-files>
 </project-private>

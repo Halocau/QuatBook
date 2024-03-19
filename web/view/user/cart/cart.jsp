@@ -117,6 +117,7 @@
                                                     <input type="hidden" name="id" value="${p.id}"/>
                                                     <input type="number" name="quantity" 
                                                            min="1"
+                                                           max="${p.quantity}"
                                                            oninput="validity.valid||(value='');"
                                                            value="${order.quantity}" 
                                                            onchange="return this.closest('form').submit()"/>
