@@ -70,7 +70,8 @@ public class ProductDAO extends GenericDAO<Product> {
         parameterMap.put("offset", (page - 1) * commonConst.RECORD_PER_PAGE);
         parameterMap.put("fetch", commonConst.RECORD_PER_PAGE);
         return queryGenericDAO(Product.class, sql, parameterMap) == null
-                ? findAll() : queryGenericDAO(Product.class, sql, parameterMap);
+                ? findAll() 
+                : queryGenericDAO(Product.class, sql, parameterMap);
     }
 
     public int findTotalRecordByCategory(String categoryId) {
@@ -194,4 +195,7 @@ public class ProductDAO extends GenericDAO<Product> {
 //            ex.printStackTrace();
 //        }
 //}
+    public static void main(String[] args) {
+        System.out.println(new ProductDAO().findAll());
+    }
 }

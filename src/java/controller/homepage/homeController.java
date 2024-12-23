@@ -81,13 +81,13 @@ public class homeController extends HttpServlet {
                 String categoryId = request.getParameter("categoryId");
                 totalRecord = productDAO.findTotalRecordByCategory(categoryId);
                 listProduct = productDAO.findByCategoryId(categoryId, page);
-                pageControl.setUrlPattern(requestURL + "?search=category&categoryId=" + categoryId + "&");
+                pageControl.setUrlPattern(requestURL + "?action=category&categoryId=" + categoryId + "&");
                 break;
             case "search":
                 String keyword = request.getParameter("keyword");
                 totalRecord = productDAO.findTotalRecordByName(keyword);
                 listProduct = productDAO.searchByName(keyword, page);
-                pageControl.setUrlPattern(requestURL + "?search=searchByName&keyword=" + keyword + "&");
+                pageControl.setUrlPattern(requestURL + "?action=searchByName&keyword=" + keyword + "&");
                 break;
             default:
                 totalRecord = productDAO.findTotalRecord();
